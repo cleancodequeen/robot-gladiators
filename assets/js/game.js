@@ -63,7 +63,7 @@ var enemyInfo = [
   },
 ];
 
-var fightOrSkip = function () { //Start with 3.5.5 11/29/2021
+var fightOrSkip = function () { //Start with 3.5.6   11/29/2021
   var promptFight = window.prompt(
     'Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.'
   );
