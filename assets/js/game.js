@@ -68,27 +68,37 @@ var fightOrSkip = function () { //Start with 3.5.6   11/29/2021
     'Would you like to FIGHT or SKIP this battle? Enter "FIGHT" or "SKIP" to choose.'
   );
 
+  promptFight = promptFight.toLowerCase();
+
   if (promptFight === '' || promptFight === null) {
     window.alert("You need to provie a valid answer! Please try again.");
     return fightOrSkip();
   }
 
-  if (promptFight == "skip" || promptFight === "SKIP") {
+  if (promptFight == "skip") {
     var confirmSkip = window.confirm("Are you sure you'd like to quit?");
   }
   
   if (confirmSkip) {
     window.alert(playerInfo.name + " has decided to skip this fight. Goodbye!");
-    playerInfo.playerMoney = playerInfo.money - 10;
-    shop();
+    // subtract money from playerInfo.money for skipping, but don't let them go into the negative
+    playerInfo.money = Math.max(0, playerInfo.money - 10);
+    
+    //return true if player wants to leave
+    return true;
   }
+
+  return false;
 }
 
 // fight function (now with parameter for enemy's name)
 var fight = function (enemy) {
   while (playerInfo.health > 0 && enemy.health > 0) {
     // ask player if they'd like to fight or run
-    fightOrSkip();
+    if (fightOrSkip()) {
+      // if true, leave fight by breaking loop
+      break;
+    }
     
 
     // remove enemy's health by subtracting the amount set in the playerInfo.attack variable
